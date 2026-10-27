@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Log in</h2>
+<form method="post">
+    <p>Username: <input name="username"></p>
+    <p>Password: <input name="password" type="password"></p>
+    <p><button type="submit">Log in</button></p>
+</form>
+<p><a href="{{ url_for('auth.forgot') }}">Forgot your password?</a></p>
+{% endblock %}

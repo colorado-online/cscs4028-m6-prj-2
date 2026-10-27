@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>{{ note.title }}</h2>
+{# Notes may contain HTML formatting such as <b> and <ul> #}
+<div>{{ note.body | safe }}</div>
+{% endblock %}

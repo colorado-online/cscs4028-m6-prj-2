@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>My notes</h2>
+<ul>
+    {% for note in notes %}
+    <li><a href="{{ url_for('notes.view', note_id=note.id) }}">{{ note.title }}</a></li>
+    {% endfor %}
+</ul>
+
+<h2>Public notes</h2>
+<ul>
+    {% for note in public_notes %}
+    <li><a href="{{ url_for('notes.view', note_id=note.id) }}">{{ note.title }}</a> by {{ note.username }}</li>
+    {% endfor %}
+</ul>
+
+<h2>New note</h2>
+<form method="post" action="{{ url_for('notes.create') }}">
+    <p>Title: <input name="title"></p>
+    <p><textarea name="body" rows="6" cols="60"></textarea></p>
+    <p><label><input type="checkbox" name="public"> Share with all students</label></p>
+    <p><button type="submit">Save</button></p>
+</form>
+
+<h2>Backup</h2>
+<p><a href="{{ url_for('notes.export_notes') }}">Export my notes</a></p>
+<form method="post" action="{{ url_for('notes.import_notes') }}" enctype="multipart/form-data">
+    <p><input type="file" name="backup"> <button type="submit">Import</button></p>
+</form>
+
+<h2>Files</h2>
+<ul>
+    {% for name in files %}
+    <li><a href="{{ url_for('notes.download', name=name) }}">{{ name }}</a>
+        (<a href="{{ url_for('notes.file_info', name=name) }}">word count</a>)</li>
+    {% endfor %}
+</ul>
+<form method="post" action="{{ url_for('notes.upload') }}" enctype="multipart/form-data">
+    <p><input type="file" name="file"> <button type="submit">Upload</button></p>
+</form>
+{% endblock %}
